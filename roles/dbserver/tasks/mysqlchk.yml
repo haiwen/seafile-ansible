@@ -1,0 +1,19 @@
+---
+# apply the xinetd to check the mysql cluster status
+
+- name: configure the script to check mysql status
+  copy: src=clustercheck dest=/usr/bin/clustercheck mode=0755
+
+- name: create a mysql_user to check mysql status
+  mysql_user: name=clustercheckuser password=clustercheckpassword! priv=*.*:PROCESS host='localhost' state=present
+  when: loader == "true"
+
+- name: deploy xinetd
+  yum: name=xinetd state=latest
+
+- name: configure xinetd
+  copy: src=mysqlchk dest=/etc/xinetd.d/mysqlchk
+
+- name: configure services
+  copy: src=services dest=/etc/services
+  notify: start xinetd

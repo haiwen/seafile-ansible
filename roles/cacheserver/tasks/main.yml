@@ -1,0 +1,12 @@
+---
+# deploy memcached for seafile
+
+- name: install memcached
+  yum: name=memcached state=latest
+
+- name: config memcached to sit max_mem
+  copy: src=memcached dest=/etc/sysconfig/memcached
+  notify: restart memcached
+
+- name: start memcached
+  service: name=memcached state=started enabled=yes

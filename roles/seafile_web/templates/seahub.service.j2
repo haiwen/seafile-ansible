@@ -1,0 +1,12 @@
+[Unit]
+Description=Seafile Seahub
+After=network.target seafile.service
+[Service]
+ExecStart={{ deploy_path }}/seafile-server-latest/seahub.sh start 8000
+ExecStop={{ deploy_path }}/seafile-server-latest/seahub.sh stop
+User=root
+Group=root
+Type=oneshot
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

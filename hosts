@@ -1,0 +1,17 @@
+[dbservers]
+192.168.1.175 loader="true"
+192.168.1.173 loader="false"
+192.168.1.145 loader="false"
+
+[cacheservers]
+192.168.1.175
+192.168.1.173
+
+[seafile_backgrounds]
+192.168.1.176 nginx_port=80
+
+[seafile_webs]
+192.168.1.170 nginx_port=8001 master_web='true'
+192.168.1.181 nginx_port=8001 master_web='false'
+
+# 强烈建议您在修改hosts之前参考一下'hosts变量声明'手册。

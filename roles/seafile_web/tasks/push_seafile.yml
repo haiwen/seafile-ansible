@@ -1,0 +1,9 @@
+---
+# push the seafile backgroud node to remote
+
+- name: push seafile
+  synchronize:
+    mode: push
+    src: "{{ deploy_path }}/"
+    dest: "{{ deploy_path }}"
+    compress: yes

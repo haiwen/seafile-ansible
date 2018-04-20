@@ -1,0 +1,11 @@
+---
+# disabled selinux and stop firewalld
+
+- name: stop firewalld
+  service: name=firewalld state=stopped enabled=no
+
+- name: disabled selinux with config
+  selinux: state=disabled
+
+- name: disabled selinux
+  command: "setenforce 0"

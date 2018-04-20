@@ -1,0 +1,29 @@
+---
+# deploy the mariadb cluster and configure the databases
+
+- name: add the mysql.repo
+  copy: src=mysql.repo dest=/etc/yum.repos.d/
+
+- name: install mysql
+  yum: name={{ item }} state=latest update_cache=true
+  with_items:
+    - MariaDB-Galera-server
+    - MariaDB-client
+    - galera
+    - rsync
+    - MySQL-python
+
+- name: configure mysql with cluster
+  template: src=server.cnf.j2 dest=/etc/my.cnf.d/server.cnf
+
+- name: start mysql-loader
+  shell: mysqld --wsrep-new-cluster &
+  when: loader == "true"
+
+- name: start mysql-follwer
+  service: name=mysql state=started
+  when: loader == "false"
+
+- include: mysqlchk.yml
+- include: createdb.yml
+  when: loader == "true"

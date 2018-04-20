@@ -1,0 +1,32 @@
+---
+# deploy the seafile front-end nodes
+
+- name: install epel-release
+  yum: name=epel-release state=latest
+
+- name: install dependency pkgs
+  yum: name={{ item }} state=latest update_cache=yes
+  with_items: "{{ depend_pkgs }}"
+
+- name: pip install
+  pip: name={{ item }} virtualenv_python=python2.7 state=latest
+  with_items:
+  - pylibmc
+  - django-pylibmc
+  - boto
+
+- name: install front-end seafile powerboot scripts
+  template: src={{ item.srcfile }} dest=/etc/systemd/system/{{ item.destfile }}
+  with_items:
+    - {srcfile: 'seafile.service.j2', destfile: 'seafile.service'}
+    - {srcfile: 'seahub.service.j2', destfile: 'seahub.service'}
+
+- name: enable front-end seafile powerboot
+  service: name={{ item }} enabled=yes
+  with_items:
+    - seafile
+    - seahub
+
+- include: push_seafile.yml
+- include: modify_seahub_conf.yml
+- include: modify_seafevents_conf.yml

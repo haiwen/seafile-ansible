@@ -1,0 +1,12 @@
+---
+# create the ccnet_db, seafile_db, seahub_db and create seafile DB user
+
+- name: create seafile databases
+  mysql_db: name={{ item }} encoding=utf8 state=present
+  with_items:
+    - ccnet_db
+    - seafile_db
+    - seahub_db
+
+- name: create seafile DB user
+  mysql_user: name={{ seaf_DB_user }} password={{ seaf_DB_pass }} priv=*.*:ALL host='%' state=present

@@ -1,0 +1,22 @@
+global
+    log 127.0.0.1 local1 notice
+    maxconn 4096
+    user haproxy
+    group haproxy
+
+defaults
+    log global
+    mode http
+    retries 3
+    timeout connect 10000
+    timeout client 300000
+    timeout server 300000
+
+listen seafile 0.0.0.0:80
+    mode http
+    option httplog
+    option dontlognull
+    option forwardfor
+    cookie SERVERID insert indirect nocache
+    server seafileserver01 {{ seafile_web1_ip }}:{{ nginx_port }} check port 11001 cookie seafileserver01
+    server seafileserver02 {{ seafile_web2_ip }}:{{ nginx_port }} check port 11001 cookie seafileserver02

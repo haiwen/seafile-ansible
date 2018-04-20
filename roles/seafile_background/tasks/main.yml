@@ -1,0 +1,42 @@
+---
+# deploy the seafile background nodes
+
+- name: install epel-release
+  yum: name=epel-release state=latest
+
+- name: install dependency pkgs
+  yum: name={{ item }} state=latest update_cache=yes
+  with_items: "{{ depend_pkgs }}"
+
+- name: pip install
+  pip: name={{ item }} virtualenv_python=python2.7 state=latest
+  with_items:
+    - pylibmc
+    - django-pylibmc
+    - boto
+
+- name: deploy background seafile
+  shell: "{{ deploy_path }}/seafile-pro-server-{{ seafile_version }}/setup-seafile-mysql.sh auto -e 1 -o {{ cache_vip }} -t {{ mysql_port }} -u {{ seaf_DB_user }} -w {{ seaf_DB_pass }} -c ccnet_db -s seafile_db -b seahub_db"
+
+- name: install background seafile powerboot scripts
+  template: src={{ item.srcfile }} dest=/etc/systemd/system/{{ item.destfile }}
+  with_items:
+    - {srcfile: 'seafile.service.j2', destfile: 'seafile.service'}
+    - {srcfile: 'seahub.service.j2', destfile: 'seahub.service'}
+    - {srcfile: 'seafile-background-tasks.service.j2', destfile: 'seafile-background-tasks.service'} 
+
+- name: enable background seafile powerboot
+  service: name={{ item }} enabled=yes
+  with_items:
+    - seafile
+    - seahub
+    - seafile-background-tasks
+
+- include: add_seahub_conf.yml
+- include: add_seafile_conf.yml
+- include: enable_wbedav.yml
+- include: add_S3_conf.yml
+  when: AWS_S3 == 'false'
+- include: add_S3_AWS_conf.yml
+  when: AWS_S3 == 'true'
+- include: pull_seafile.yml

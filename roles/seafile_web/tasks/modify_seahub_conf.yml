@@ -1,0 +1,9 @@
+---
+# modify the seahub_settings.py to join the seaflie cluster
+
+- name: modify the seahub_settings.py
+  lineinfile:
+    path: "{{ deploy_path }}/conf/seahub_settings.py"
+    regexp: "OFFICE_CONVERTOR_NODE*"
+    line: "OFFICE_CONVERTOR_ROOT = 'http://{{ seafile_background_ip }}'"
+    backup: yes

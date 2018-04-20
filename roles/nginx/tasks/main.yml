@@ -1,0 +1,15 @@
+---
+# deploy the nginx for seafile front-end nodes
+
+- name: install nginx
+  yum: name=nginx state=latest
+
+- name: cover the nginx default conf and configre seafile
+  template: src={{ item.srcfile }} dest=/etc/nginx/{{ item.destfile }} backup=yes
+  with_items:
+    - { srcfile: 'nginx.conf.j2', destfile: 'nginx.conf'}
+    - { srcfile: 'seafile.conf.j2', destfile: 'conf.d/seafile.conf'}
+  notify: restart nginx
+
+- name: start nginx
+  service: name=nginx state=started enabled=yes

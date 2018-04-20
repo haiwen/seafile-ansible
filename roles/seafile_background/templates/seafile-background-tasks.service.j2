@@ -1,0 +1,14 @@
+[Unit]
+Description=Seafile Background Tasks Server
+After=network.target seahub.service
+
+[Service]
+Type=oneshot
+ExecStart={{ deploy_path }}/seafile-server-latest/seafile-background-tasks.sh start
+ExecStop={{ deploy_path }}/seafile-server-latest/seafile-background-tasks.sh stop
+RemainAfterExit=yes
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

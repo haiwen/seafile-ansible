@@ -1,0 +1,14 @@
+---
+# configure the seafdav.conf to enabled the seafile webdav 
+
+- name: enabled webdav
+  lineinfile:
+    path: '{{ deploy_path }}/conf/seafdav.conf'
+    regexp: 'enabled'
+    line: 'enabled = true'
+
+- name: set webdav path
+  lineinfile:
+    path: '{{ deploy_path }}/conf/seafdav.conf'
+    regexp: 'share_name'
+    line: 'share_name = /seafdav'

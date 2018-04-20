@@ -1,0 +1,58 @@
+---
+
+# DB server
+
+seaf_DB_user: 'seafile'
+seaf_DB_pass: 'Sea@File0'
+dbhost1_ip: 192.168.1.175
+dbhost2_ip: 192.168.1.173
+dbhost3_ip: 192.168.1.145
+mysql_port: 13306
+broadcast_cache_ip: 224.0.100.19
+cache_vip: 192.168.1.13
+cache_vip_mask: 24
+
+# S3
+AWS_S3: 'false'
+bucket_commit_name: 'commit'
+bucket_fs_name: 'fs'
+bucket_block_name: 'block'
+your_key_id: 'test'
+your_secret_key: 'test'
+S3_host_ip: 192.168.1.111
+S3_port: 8090
+
+# seafile cluster
+
+deploy_path: '/opt/seafile'
+seafile_version: '6.2.10'
+web_vip: 192.168.1.12
+web_vip_mask: 24
+broadcast_seafile_ip: 224.0.100.18
+seafile_web1_ip: 192.168.1.170
+seafile_web2_ip: 192.168.1.181
+seafile_background_ip: 192.168.1.176
+depend_pkgs:
+  - 'rsync'
+  - 'python-setuptools'
+  - 'python-imaging'
+  - 'MySQL-python'
+  - 'python-urllib3'
+  - 'java-1.7.0-openjdk'
+  - 'python-ldap'
+  - 'poppler-utils'
+  - 'libreoffice'
+  - 'python-requests'
+  - 'libreoffice-headless'
+  - 'libreoffice-pyuno'
+  - 'wqy-microhei-fonts'
+  - 'openssl'
+  - 'wqy-zenhei-fonts'
+  - 'wqy-unibit-fonts'
+  - 'gcc'
+  - 'libffi-devel'
+  - 'python-devel'
+  - 'openssl-devel'
+  - 'libmemcached'
+  - 'libmemcached-devel'
+  - 'python2-pip'

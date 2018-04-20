@@ -1,0 +1,12 @@
+---
+# deploy the haproxy to loadblance the mysql cluster
+
+- name: install haproxy
+  yum: name=haproxy state=latest
+
+- name: configure haproxy
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: start haproxy
+  service: name=haproxy state=started enabled=yes

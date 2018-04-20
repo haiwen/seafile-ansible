@@ -1,0 +1,12 @@
+---
+# add the config about seafile cluster in seafevents.conf
+
+- name: modify the seafevents.conf to join the seafile cluster
+  blockinfile:
+    path: "{{ deploy_path }}/conf/seafevents.conf"
+    insertafter: "index_office_pdf*"
+    block: |
+        external_es_server = true
+        es_host = {{ seafile_background_ip }}
+        es_port = 9200
+    backup: yes

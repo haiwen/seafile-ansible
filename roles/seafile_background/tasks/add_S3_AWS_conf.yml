@@ -1,0 +1,29 @@
+---
+# add the config about S3 not AWS to seafile.conf
+
+- name: add the config of AWS S3
+  blockinfile:
+    path: "{{ deploy_path }}/conf/seafile.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK S3"
+    insertafter: EOF
+    block: |
+        [commit_object_backend]
+        name = s3
+        bucket = {{ bucket_commit_name }}
+        key_id = {{ your_key_id }}
+        key = {{ your_secret_key }}
+        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
+        
+        [fs_object_backend]
+        name = s3
+        bucket = {{ bucket_fs_name }}
+        key_id = {{ your_key_id }}
+        key = {{ your_secret_key }}
+        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
+        
+        [block_backend]
+        name = s3
+        bucket = {{ bucket_block_name }}
+        key_id = {{ your_key_id }}
+        key = {{ your_secret_key }}
+        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100

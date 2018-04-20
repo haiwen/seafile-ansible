@@ -1,0 +1,21 @@
+---
+# deploy the keepalived for memcached an dbhaproxy
+
+- name: install keepalived
+  yum: name={{ item }} state=latest
+  with_items:
+    - keepalived
+    - psmisc
+  
+- name: config keepalived master node
+  template: src=master.j2 dest=/etc/keepalived/keepalived.conf
+  when: loader == "true"
+  notify: restart keepalived
+
+- name: config keepalived backup node
+  template: src=backup.j2 dest=/etc/keepalived/keepalived.conf
+  when: loader == "false"
+  notify: restart keepalived
+
+- name: start keepalived
+  service: name=keepalived state=started enabled=yes

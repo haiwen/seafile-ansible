@@ -1,0 +1,4 @@
+---
+
+- name: start xinetd
+  service: name=xinetd state=started enabled=yes

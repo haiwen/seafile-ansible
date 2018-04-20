@@ -1,0 +1,13 @@
+---
+# add the config of seafile cluster to seafile.conf
+
+- name: add the config to seafile.conf
+  blockinfile: 
+      path: "{{ deploy_path }}/conf/seafile.conf"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK CACHE"
+      insertafter: EOF
+      block: |
+          [cluster]
+          enabled = true
+          memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
+      backup: yes

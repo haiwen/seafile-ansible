@@ -1,0 +1,30 @@
+---
+# deploy the haproxy for loadblance the seafile web
+
+- name: install haproxy for seafile web
+  yum: name=haproxy state=latest
+
+- name: configure haproxy for seafile web
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg backup=yes
+  notify: restart haproxy
+
+- name: start haproxy for seafile web
+  service: name=haproxy state=started enabled=yes
+
+# install the keepalived to HA the web_haproxy
+
+- name: install keepalived for seafile web
+  yum: name=keepalived state=latest
+
+- name: configure keepalived for seafile master web
+  template: src=master_keep.j2 dest=/etc/keepalived/keepalived.conf
+  when: master_web == "true"
+  notify: restart keepalived
+
+- name: configure keepalived for seafile master web
+  template: src=backup_keep.j2 dest=/etc/keepalived/keepalived.conf
+  when: master_web == "false"
+  notify: restart keepalived
+
+- name: start keepalived for seafile web
+  service: name=keepalived state=started enabled=yes

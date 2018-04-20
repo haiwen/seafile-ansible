@@ -1,0 +1,9 @@
+---
+# pull the seafile backgroud node to local
+
+- name: pull seafile
+  synchronize:
+    mode: pull
+    src: "{{ deploy_path }}/"
+    dest: "{{ deploy_path }}"
+    compress: yes

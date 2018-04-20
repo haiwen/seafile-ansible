@@ -1,0 +1,42 @@
+---
+# deploy Seafile Cluster with Ansible.
+
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: root
+
+  roles:
+    - common
+
+- name: deploy the mariadb cluster and configure the databases
+  hosts: dbservers
+  remote_user: root
+
+  roles:
+    - dbserver
+
+- name: deploy memcached for seafile and deploy keepalived for memcached and deploy dbhaproxy
+  hosts: cacheservers
+  remote_user: root
+
+  roles:
+    - cacheserver
+    - keepcache
+    - dbhaproxy
+
+- name: deploy the seafile and configure the seafile-background
+  hosts: seafile_backgrounds
+  remote_user: root
+
+  roles:
+    - seafile_background
+    - nginx
+
+- name: deploy the seafile and configure the seafile-web
+  hosts: seafile_webs
+  remote_user: root
+
+  roles:
+    - seafile_web
+    - nginx
+    - webhaproxy

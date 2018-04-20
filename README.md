@@ -5,7 +5,7 @@
 
 该集群架构某型如下所示：
 
-![6-nodes-cluster](../images/6-nodes-cluster.png)
+![6-nodes-cluster](images/6-nodes-cluster.png)
 
 ## 介绍
 

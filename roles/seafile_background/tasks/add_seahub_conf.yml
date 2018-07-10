@@ -11,8 +11,12 @@
               'default': {
                   'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
                   'LOCATION': '{{ cache_vip }}:11211',
-              }
+              },
+              'locmem': {
+                  'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+              },
           }
+          COMPRESS_CACHE_BACKEND = 'locmem'
 
           TIME_ZONE                           = 'Asia/Shanghai'
           SITE_BASE                           = 'http://{{ web_vip }}'
@@ -31,6 +35,5 @@
           FILE_SERVER_ROOT                    = 'http://{{ web_vip }}/seafhttp'
 
           AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
-          COMPRESS_CACHE_BACKEND = 'django.core.cache.backends.locmem.LocMemCache'
           OFFICE_CONVERTOR_NODE = True
       backup: yes

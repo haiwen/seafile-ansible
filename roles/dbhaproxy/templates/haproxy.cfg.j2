@@ -1,33 +1,36 @@
 global
     log 127.0.0.1   local0
     log 127.0.0.1   local1 notice
-    maxconn 1024
+    maxconn 4000
     user haproxy
     group haproxy
     daemon
 
 defaults
     log     global
-    mode    http
-    option  tcplog
-    option  dontlognull
-    retries 3
-    option  redispatch
-    maxconn 1024
-    timeout connect 5000ms
-    timeout client 50000ms
-    timeout server 50000ms
+    retries                 3
+    timeout http-request    10s
+    timeout queue           1m
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout http-keep-alive 10s
+    timeout check           10s
+    maxconn                 4000
 
-listen mariadb_cluster_writes 0.0.0.0:{{ mysql_port }}
-## A failover pool for writes to ensure writes only hit one node at a time. 
+listen mariadb_cluster_writes
+    bind 0.0.0.0:{{ mysql_port }}
+    balance source
     mode tcp
-    option httpchk 
-    server galera-node01 {{ dbhost1_ip }}:3306 check port 9200
-    server galera-node02 {{ dbhost2_ip }}:3306 check port 9200
-    server galera-node03 {{ dbhost3_ip }}:3306 check port 9200
+    option tcpka
+    option mysql-check user haproxy 
+    server galera-node01 {{ dbhost1_ip }}:3306 check weight 1
+    server galera-node02 {{ dbhost2_ip }}:3306 check weight 1
+    server galera-node03 {{ dbhost3_ip }}:3306 check weight 1
 
-listen stats 0.0.0.0:9000
 ## HAProxy stats web gui.
+listen stats
+	bind 0.0.0.0:9000
 	mode http
 	stats enable
 	stats uri /haproxy_stats  

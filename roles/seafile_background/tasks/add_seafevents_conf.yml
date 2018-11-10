@@ -1,0 +1,20 @@
+---
+# add the config of seafile cluster to seafile.conf
+
+- name: add the config to seafevents.conf
+  blockinfile: 
+      path: "{{ deploy_path }}/conf/seafevents.conf"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK CACHE"
+      insertafter: EOF
+      block: |
+          [STATISTICS]
+          enabled = true
+      backup: no
+
+- name: modify the seafevents.conf to join the seafile cluster
+  blockinfile:
+      path: "{{ deploy_path }}/conf/seafevents.conf"
+      insertafter: "index_office_pdf*"
+      block: |
+          highlight = fvh
+      backup: yes

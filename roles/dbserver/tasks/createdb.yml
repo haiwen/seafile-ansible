@@ -10,3 +10,6 @@
 
 - name: create seafile DB user
   mysql_user: name={{ seaf_DB_user }} password={{ seaf_DB_pass }} priv=*.*:ALL host='%' state=present
+
+- name: create a mysql_user for haproxy to check mysql status
+  mysql_user: name=haproxy host='%' state=present

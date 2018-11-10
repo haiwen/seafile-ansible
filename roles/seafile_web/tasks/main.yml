@@ -14,6 +14,7 @@
   - pylibmc
   - django-pylibmc
   - boto
+  - Pillow==4.3.0
 
 - name: install front-end seafile powerboot scripts
   template: src={{ item.srcfile }} dest=/etc/systemd/system/{{ item.destfile }}

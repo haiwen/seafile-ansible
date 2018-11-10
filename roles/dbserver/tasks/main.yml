@@ -24,6 +24,5 @@
   service: name=mysql state=started
   when: loader == "false"
 
-- include: mysqlchk.yml
 - include: createdb.yml
   when: loader == "true"

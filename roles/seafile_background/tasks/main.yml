@@ -14,6 +14,7 @@
     - pylibmc
     - django-pylibmc
     - boto
+    - Pillow==4.3.0
 
 - name: deploy background seafile
   shell: "{{ deploy_path }}/seafile-pro-server-{{ seafile_version }}/setup-seafile-mysql.sh auto -e 1 -o {{ cache_vip }} -t {{ mysql_port }} -u {{ seaf_DB_user }} -w {{ seaf_DB_pass }} -c ccnet_db -s seafile_db -b seahub_db"

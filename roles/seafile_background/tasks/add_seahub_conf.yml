@@ -36,4 +36,4 @@
 
           AVATAR_FILE_STORAGE = 'seahub.base.database_storage.DatabaseStorage'
           OFFICE_CONVERTOR_NODE = True
-      backup: yes
+      backup: no

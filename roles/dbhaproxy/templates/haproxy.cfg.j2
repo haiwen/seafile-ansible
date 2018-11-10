@@ -19,11 +19,11 @@ defaults
     maxconn                 4000
 
 listen mariadb_cluster_writes
-	bind 0.0.0.0:{{ mysql_port }}
-	balance source
+    bind 0.0.0.0:{{ mysql_port }}
+    balance source
     mode tcp
-    option tcpka
-	option mysql-check user haproxy 
+	option tcpka
+    option mysql-check user haproxy 
     server galera-node01 {{ dbhost1_ip }}:3306 check weight 1
     server galera-node02 {{ dbhost2_ip }}:3306 check weight 1
     server galera-node03 {{ dbhost3_ip }}:3306 check weight 1

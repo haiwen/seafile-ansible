@@ -1,5 +1,5 @@
 ---
-# add the config of seafile cluster to seafile.conf
+# add the config of STATISTICS to seafevents.conf
 
 - name: add the config to seafevents.conf
   blockinfile: 
@@ -10,11 +10,3 @@
           [STATISTICS]
           enabled = true
       backup: no
-
-- name: modify the seafevents.conf to join the seafile cluster
-  blockinfile:
-      path: "{{ deploy_path }}/conf/seafevents.conf"
-      insertafter: "index_office_pdf*"
-      block: |
-          highlight = fvh
-      backup: yes

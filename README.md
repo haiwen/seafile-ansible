@@ -26,7 +26,7 @@ yum install ansible -y
 
 3. 下载该项目文件到Ansible主机上任意路径下。
 ```
-wget https://github.com/haiwen/seafile-ansible
+git clone https://github.com/haiwen/seafile-ansible
 ```
 
 4. 修改hosts文件，定义远程主机列表

@@ -14,7 +14,6 @@
         key = {{ your_secret_key }}
         host = {{ S3_host_ip }}:{{ S3_port}}
         path_style_request = true
-        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
         
         [fs_object_backend]
         name = s3
@@ -23,7 +22,6 @@
         key = {{ your_secret_key }}
         host = {{ S3_host_ip }}:{{ S3_port}}
         path_style_request = true
-        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
         
         [block_backend]
         name = s3
@@ -32,4 +30,3 @@
         key = {{ your_secret_key }}
         host = {{ S3_host_ip }}:{{ S3_port}}
         path_style_request = true
-        memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100

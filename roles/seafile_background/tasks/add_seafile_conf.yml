@@ -9,5 +9,7 @@
       block: |
           [cluster]
           enabled = true
+          
+          [memcached]
           memcached_options = --SERVER={{ cache_vip }} --POOL-MIN=10 --POOL-MAX=100
-      backup: yes
+      backup: no

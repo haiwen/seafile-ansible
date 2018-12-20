@@ -25,7 +25,7 @@ S3_port: 8090
 # seafile cluster
 
 deploy_path: '/opt/seafile'
-seafile_version: '6.3.7'
+seafile_version: '6.3.9'
 web_vip: 192.168.1.12
 web_vip_mask: 24
 broadcast_seafile_ip: 224.0.100.18

@@ -11,10 +11,11 @@
 - name: pip install
   pip: name={{ item }} virtualenv_python=python2.7 state=latest
   with_items:
-  - pylibmc
-  - django-pylibmc
+  - pylibmc==1.6.0
+  - django-pylibmc==0.6.1
   - boto
   - Pillow==4.3.0
+  - psd-tools==1.4
 
 - name: install front-end seafile powerboot scripts
   template: src={{ item.srcfile }} dest=/etc/systemd/system/{{ item.destfile }}

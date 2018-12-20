@@ -11,10 +11,11 @@
 - name: pip install
   pip: name={{ item }} virtualenv_python=python2.7 state=latest
   with_items:
-    - pylibmc
-    - django-pylibmc
+    - pylibmc==1.6.0
+    - django-pylibmc==0.6.1
     - boto
     - Pillow==4.3.0
+    - psd-tools==1.4
 
 - name: deploy background seafile
   shell: "{{ deploy_path }}/seafile-pro-server-{{ seafile_version }}/setup-seafile-mysql.sh auto -e 1 -o {{ cache_vip }} -t {{ mysql_port }} -u {{ seaf_DB_user }} -w {{ seaf_DB_pass }} -c ccnet_db -s seafile_db -b seahub_db"

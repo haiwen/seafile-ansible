@@ -18,7 +18,7 @@ Ansible 是一款轻量级的自动化部署工具，支持通过SSH协议向远
 部署Ansible主机很简单：
 
 ```
-yum install epel-releases -y
+yum install epel-release -y
 yum install ansible -y
 ```
 

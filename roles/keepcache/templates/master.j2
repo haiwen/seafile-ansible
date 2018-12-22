@@ -11,7 +11,7 @@ global_defs {
     vrrp_mcast_group4 {{ broadcast_cache_ip }}
 }
 vrrp_script chk_memcached {
-    script "killall -0 memcached && exit 0 || exit 1"
+    script "killall -0 memcached"
     interval 1
     weight -5
 }
@@ -30,6 +30,6 @@ vrrp_instance VI_1 {
         {{ cache_vip }}/{{ cache_vip_mask }} dev {{ ansible_default_ipv4.interface }}
     }
     track_script {
-    chk_memcached
+        chk_memcached
     }
 }

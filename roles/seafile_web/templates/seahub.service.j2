@@ -1,8 +1,8 @@
 [Unit]
 Description=Seafile Seahub
-After=network.target seafile.service
+After=network.target remote-fs.target nss-lookup.target seafile.service
 [Service]
-ExecStart={{ deploy_path }}/seafile-server-latest/seahub.sh start 8000
+ExecStart={{ deploy_path }}/seafile-server-latest/seahub.sh start
 ExecStop={{ deploy_path }}/seafile-server-latest/seahub.sh stop
 User=root
 Group=root

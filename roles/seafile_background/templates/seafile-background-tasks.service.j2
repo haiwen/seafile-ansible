@@ -1,6 +1,6 @@
 [Unit]
 Description=Seafile Background Tasks Server
-After=network.target seahub.service
+After=network.target remote-fs.target nss-lookup.target seahub.service
 
 [Service]
 Type=oneshot
